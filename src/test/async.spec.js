@@ -3,10 +3,19 @@ const { findUserById, findUserByName } = require('../async');
 
 describe('Test async queries', () => {
   describe('Test findUserById function', () => {
-    it('Should return user data by id', () => {
-      return findUserById(1).then(({ user }) => {
-        assert.equal(user.name, 'Alex');
-      })
+    it('Should return user data by id', async () => {
+      const { user } = await findUserById(1);
+
+      assert.equal(user.name, 'Alex');
+    });
+
+    it('Should throw an error if user is not found', () => {
+      const id = 3939;
+      const errorMessage = `User with id ${id} was not found.`;
+
+      return findUserById(id).catch(({ message }) => {
+        assert.equal(message, errorMessage);
+      });
     });
   })
 
@@ -24,5 +33,15 @@ describe('Test async queries', () => {
         assert.deepEqual(user, expected);
       })
     ));
+
+    it('Should throw an error if user is not found', async () => {
+      const testName = 'Max'
+      const errorMessage = `User with name ${testName} was not found.`;
+      try {
+        await findUserByName(testName);
+      } catch (e) {
+        assert.equal(e.message, errorMessage);
+      }
+    })
   })
 })

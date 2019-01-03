@@ -1,6 +1,6 @@
 const users = require('./db/users');
 
-const QUERY_TIME = 1500;
+const QUERY_TIME = 500;
 
 const findUserById = (id) => new Promise((resolve, reject) => {
   setTimeout(() => {
