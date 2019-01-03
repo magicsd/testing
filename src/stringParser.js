@@ -36,7 +36,7 @@ function stringify(paramsObject) {
   return `?${params.join('&')}`;
 }
 
-const params = parse('?name=alex-the-great&key=&pass=123');
-console.log('params=', params);
-console.log('filtered=', removeEmpty(params));
-console.log('string=', stringify(params));
+module.exports = {
+  parse,
+  stringify,
+}
