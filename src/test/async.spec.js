@@ -17,7 +17,7 @@ describe('Test async queries', () => {
         assert.equal(message, errorMessage);
       });
     });
-  })
+  });
 
   describe('Test findUserByName function', () => {
     it('Should return user by name', () => (
@@ -37,11 +37,17 @@ describe('Test async queries', () => {
     it('Should throw an error if user is not found', async () => {
       const testName = 'Max'
       const errorMessage = `User with name ${testName} was not found.`;
+      const EXPECTED_ERROR = 'EXPECTED_ERROR';
+
       try {
         await findUserByName(testName);
+        assert.fail(EXPECTED_ERROR);
       } catch (e) {
+        if (e.message === EXPECTED_ERROR) {
+          throw e;
+        }
         assert.equal(e.message, errorMessage);
       }
-    })
-  })
-})
+    });
+  });
+});
