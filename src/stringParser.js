@@ -3,19 +3,19 @@ function parse(queryString) {
 
   if (queryString[0] === '?') {
     string = queryString.substring(1);
-
-    const queries = string.split('&');
-
-    const params = {};
-
-    queries.forEach(query => {
-      const queryParts = query.split('=');
-
-      params[queryParts[0]] = queryParts[1];
-    });
-
-    return params;
   }
+
+  const queries = string.split('&');
+
+  const params = {};
+
+  queries.forEach(query => {
+    const queryParts = query.split('=');
+
+    params[queryParts[0]] = queryParts[1];
+  });
+
+  return params;
 }
 
 function removeEmpty(params) {

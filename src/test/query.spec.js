@@ -18,9 +18,9 @@ describe('String Transform Function', () => {
       assert.deepEqual(actual, expected);
     });
 
-    it('Should return { number: 3 } when ?number=3 passed to it', () => {
-      assert.deepEqual(parse('?number=3'), { number: '3' });
-    })
+    it('Should return { number: 3 } when number=3 passed to it', () => {
+      assert.deepEqual(parse('number=3'), { number: '3' });
+    });
   })
 
   describe('Stringify function', () => {
@@ -36,10 +36,22 @@ describe('String Transform Function', () => {
       const expected = '?name=alex-the-great&pass=123&date=12.12.2012&allow=false';
 
       assert.equal(actual, expected);
-    })
+    });
 
     it('Should return ?lang=english when { lang: english } passed to it', () => {
       assert.equal(stringify({ lang: 'english' }), '?lang=english');
-    })
+    });
+
+    it('Should eliminate null and undefined values passed to it', () => {
+      assert.equal(stringify(
+        {
+          name: undefined,
+          age: null,
+          guitar: 'fender',
+          pick: 'tortex',
+        }),
+        '?guitar=fender&pick=tortex'
+      );
+    });
   })
 })
