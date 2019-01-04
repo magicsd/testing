@@ -1,4 +1,3 @@
-const assert = require('assert');
 const { findUserById, findUserByName } = require('../async');
 
 describe('Test async queries', () => {
@@ -6,7 +5,7 @@ describe('Test async queries', () => {
     it('Should return user data by id', async () => {
       const { user } = await findUserById(1);
 
-      assert.equal(user.name, 'Alex');
+      expect(user.name).toBe('Alex');
     });
 
     it('Should throw an error if user is not found', () => {
@@ -14,7 +13,7 @@ describe('Test async queries', () => {
       const errorMessage = `User with id ${id} was not found.`;
 
       return findUserById(id).catch(({ message }) => {
-        assert.equal(message, errorMessage);
+        expect(message).toBe(errorMessage);
       });
     });
   });
@@ -30,7 +29,7 @@ describe('Test async queries', () => {
           registeredOn: '2018-04-12',
         };
 
-        assert.deepEqual(user, expected);
+        expect(user).toEqual(expected);
       })
     ));
 
@@ -41,12 +40,12 @@ describe('Test async queries', () => {
 
       try {
         await findUserByName(testName);
-        assert.fail(EXPECTED_ERROR);
+        throw new Error(EXPECTED_ERROR);
       } catch (e) {
         if (e.message === EXPECTED_ERROR) {
           throw e;
         }
-        assert.equal(e.message, errorMessage);
+        expect(e.message).toBe(errorMessage);
       }
     });
   });
